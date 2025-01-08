@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { getTickets } from "../../Services/ticketService.js";
+import { getTickets } from "../../Services/ticketService.jsx";
 import "./Tickets.css";
 import { Tickets } from "./Ticket.jsx";
+import { TicketFilterBar } from "./TicketFilterBar.jsx";
 
 export const TicketList = () => {
   const [allTickets, setAllTickets] = useState([]);
   const [showEmergencyOnly, setShowEmergency] = useState(false);
   const [filteredTickets, setFilteredTickets] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     getTickets().then((ticketsArray) => {
@@ -26,28 +28,19 @@ export const TicketList = () => {
     }
   }, [showEmergencyOnly, allTickets]); // When the dependency contains multiple state variables, the useEffect is watching for any time any of the values change..
 
+
+  useEffect (() => {
+    const foundTickets = allTickets.filter(ticket => ticket.description.toLowerCase().includes(searchTerm.toLowerCase()))
+    setFilteredTickets(foundTickets)
+
+  },[searchTerm,allTickets])
+
+
   return (
     <>
       <div className="tickets-container">
         <h2>Tickets</h2>
-        <div>
-          <button
-            className="filter-btn btn-primary"
-            onClick={() => {
-              setShowEmergency(true);
-            }}
-          >
-            Emergency
-          </button>
-          <button
-            className="filter-btn btn-secondary"
-            onClick={() => {
-              setShowEmergency(false);
-            }}
-          >
-            Show all
-          </button>
-        </div>
+        <TicketFilterBar setShowEmergency={setShowEmergency} setSearchTerm={setSearchTerm}/>
         <article className="tickets">
           {filteredTickets.map((ticketObj) => {
             return <Tickets key={ticketObj.id} ticket={ticketObj} />;

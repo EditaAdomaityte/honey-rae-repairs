@@ -11,12 +11,11 @@ export const Tickets = ({ ticket }) => {
     });
   }, []);
 
-    useEffect(() => {
-      
+  useEffect(() => {
     const foundEmployee = employees.find(
-        (employee) => employee.id === ticket.employeeTickets[0]?.employeeId)//employeeTicket[0] evaluates if the array is empty or not
-        setAssignedEmployee(foundEmployee)
-    
+      (employee) => employee.id === ticket.employeeTickets[0]?.employeeId
+    ); //employeeTicket[0] evaluates if the array is empty or not
+    setAssignedEmployee(foundEmployee);
   }, [employees]);
 
   return (
@@ -26,8 +25,10 @@ export const Tickets = ({ ticket }) => {
       <div>{ticket.description}</div>
       <footer>
         <div>
-          <div className="ticket-info">emergency</div>
-          <div>{ticket.emergency ? "yes" : "no"}</div>
+                  <div className="ticket-info">Assignee</div>
+                  <div>{assignedEmployee ? assignedEmployee.user?.fullName : "None"}</div>{/*checks if there is an assignee, if not(:) shows None. Use ? when expecting undefined*/}
+             <div className="ticket-info">emergency</div>
+             <div>{ticket.emergency ? "yes" : "no"}</div>
         </div>
       </footer>
     </section>
