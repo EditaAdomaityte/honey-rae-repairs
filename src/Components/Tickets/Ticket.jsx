@@ -25,10 +25,13 @@ export const Tickets = ({ ticket }) => {
       <div>{ticket.description}</div>
       <footer>
         <div>
-                  <div className="ticket-info">Assignee</div>
-                  <div>{assignedEmployee ? assignedEmployee.user?.fullName : "None"}</div>{/*checks if there is an assignee, if not(:) shows None. Use ? when expecting undefined*/}
-             <div className="ticket-info">emergency</div>
-             <div>{ticket.emergency ? "yes" : "no"}</div>
+          <div className="ticket-info">Assignee</div>
+          <div>
+            {assignedEmployee ? assignedEmployee.user?.fullName : "None"}
+          </div>
+          {/*checks if there is an assignee, if not(:) shows None. Use ? when expecting undefined*/}
+          <div className="ticket-info">emergency</div>
+          <div>{ticket.emergency ? "yes" : "no"}</div>
         </div>
       </footer>
     </section>

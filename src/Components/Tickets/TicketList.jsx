@@ -8,7 +8,7 @@ export const TicketList = () => {
   const [allTickets, setAllTickets] = useState([]);
   const [showEmergencyOnly, setShowEmergency] = useState(false);
   const [filteredTickets, setFilteredTickets] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     getTickets().then((ticketsArray) => {
@@ -28,19 +28,21 @@ export const TicketList = () => {
     }
   }, [showEmergencyOnly, allTickets]); // When the dependency contains multiple state variables, the useEffect is watching for any time any of the values change..
 
-
-  useEffect (() => {
-    const foundTickets = allTickets.filter(ticket => ticket.description.toLowerCase().includes(searchTerm.toLowerCase()))
-    setFilteredTickets(foundTickets)
-
-  },[searchTerm,allTickets])
-
+  useEffect(() => {
+    const foundTickets = allTickets.filter((ticket) =>
+      ticket.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredTickets(foundTickets);
+  }, [searchTerm, allTickets]);
 
   return (
     <>
       <div className="tickets-container">
         <h2>Tickets</h2>
-        <TicketFilterBar setShowEmergency={setShowEmergency} setSearchTerm={setSearchTerm}/>
+        <TicketFilterBar
+          setShowEmergency={setShowEmergency}
+          setSearchTerm={setSearchTerm}
+        />
         <article className="tickets">
           {filteredTickets.map((ticketObj) => {
             return <Tickets key={ticketObj.id} ticket={ticketObj} />;
