@@ -1,36 +1,22 @@
 import "./App.css";
-import { CustomerList } from "./Components/Customers/CustomerList";
-import { EmployeeList } from "./Components/Employees/EmployeeList";
-import { NavBar } from "./Components/Nav/NavBar";
-import { TicketList } from "./Components/Tickets/TicketList";
-import { Routes, Route, Outlet } from "react-router-dom";
-import { Welcome } from "./Components/Welcome/Welcome";
-import { CustomerDetails } from "./Components/Customers/CustomerDetails";
-import { EmployeeDetails } from "./Components/Employees/EmployeeDetails";
+import { Routes, Route } from "react-router-dom";
+import { Login } from "./Components/auth/Login";
+import { Register } from "./Components/auth/Register";
+import { Authorized } from "./views/Authorized";
+import { ApplicationViews } from "./views/ApplicationViews";
 
 export const App = () => {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <>
-            <NavBar />
-            <Outlet />{/*when we match child route, we will render his element right here  */ }
-          </>
-        }
-      >
-        <Route index element={<Welcome />}/>{/*Route index is route for home route for parents url */}
-        <Route path="tickets" element={<TicketList />} />
-        <Route path="employees/">
-          <Route index element={<EmployeeList />}/>
-          <Route path=":userId" element={<EmployeeDetails/>}/>
-        </Route>
-        <Route path="customers"> 
-          <Route index element={<CustomerList />}/>
-          <Route path=":userId" element={<CustomerDetails/>}/>{/*:userId <- route parameter, able to capture Id*/}
-        </Route>
-      </Route>
+      <Route path="/login" element={<Login/>}/>{/*We want users to be able to see the website if they are authorizes(see views folder) */}
+      <Route path="/register" element={<Register/>}/>
+      <Route path="*" element={  //*<- any other path
+        //checks if user is authorized first
+        <Authorized>
+          {/* ApplicationViews is a CHILD component of Authorized  and returns all the views in the jsx  */}
+          <ApplicationViews />
+        </Authorized>
+      }/>
     </Routes>
   );
 };

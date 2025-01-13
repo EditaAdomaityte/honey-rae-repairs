@@ -4,17 +4,20 @@ import "./Tickets.css";
 import { Tickets } from "./Ticket.jsx";
 import { TicketFilterBar } from "./TicketFilterBar.jsx";
 
-export const TicketList = () => {
+export const TicketList = ({ currentUser }) => {
   const [allTickets, setAllTickets] = useState([]);
   const [showEmergencyOnly, setShowEmergency] = useState(false);
   const [filteredTickets, setFilteredTickets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
+  const getAndSetTickets = () => {
     getTickets().then((ticketsArray) => {
       setAllTickets(ticketsArray);
-      console.log("tickets set");
     });
+  };
+
+  useEffect(() => {
+    getAndSetTickets();
   }, []); // When the dependency array is empty, the useEffect is only watching for the initial render of this component.
 
   useEffect(() => {
@@ -45,7 +48,14 @@ export const TicketList = () => {
         />
         <article className="tickets">
           {filteredTickets.map((ticketObj) => {
-            return <Tickets key={ticketObj.id} ticket={ticketObj} />;
+            return (
+              <Tickets
+                currentUser={currentUser}
+                key={ticketObj.id}
+                ticket={ticketObj}
+                getAndSetTickets={getAndSetTickets}
+              />
+            );
           })}
         </article>
       </div>
