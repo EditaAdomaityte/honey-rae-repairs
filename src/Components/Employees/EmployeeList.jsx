@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import "./Employees.css"
 import { getStaffUsers } from "../../Services/userServices.jsx"
 import { Users } from "../../Users/User.jsx"
+import { Link } from "react-router-dom"
 
 export const EmployeeList =() =>{
     const [employees, setEmployees]=useState([])
@@ -16,7 +17,7 @@ export const EmployeeList =() =>{
         <div className="employees">
             {employees.map((employeeObj)=>{
                 return(
-                    <Users key={employeeObj.id} user={employeeObj}/>
+                   <Link to={`/employees/${employeeObj.id}`} key={employeeObj.id} ><Users  user={employeeObj}/></Link> 
                 )
             })}
 

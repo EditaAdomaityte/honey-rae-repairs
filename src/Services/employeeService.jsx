@@ -9,3 +9,7 @@ example to display assignee by fetching employee by id:
 https://www.youtube.com/watch?v=Sq4CzHMLXTk
 
 */}
+
+export const getEmployeeByUserId=(userId)=>{
+    return fetch(`http://localhost:8088/employees?userId=${userId}&_expand=user`).then(res=>res.json())
+}
