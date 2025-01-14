@@ -7,17 +7,17 @@ import { TicketList } from "../Components/Tickets/TicketList";
 import { CustomerDetails } from "../Components/Customers/CustomerDetails";
 import { CustomerList } from "../Components/Customers/CustomerList";
 import { useEffect, useState } from "react";
+import { EmployeeForm } from "../Components/forms/EmployeeEdit";
 
 export const ApplicationViews = () => {
-  const [currentUser, setCurrentUser]=useState({}) //set up state for current user that will provide info to all other components that needs it, it should be object representing logged in user
+  const [currentUser, setCurrentUser] = useState({}); //set up state for current user that will provide info to all other components that needs it, it should be object representing logged in user
 
-  useEffect(()=>{
-    const localHoneyUser=localStorage.getItem("honey_user")//getting user from local storage
-    const honeyUserObject=JSON.parse(localHoneyUser)// since int is not returning js object we parse it
+  useEffect(() => {
+    const localHoneyUser = localStorage.getItem("honey_user"); //getting user from local storage
+    const honeyUserObject = JSON.parse(localHoneyUser); // since int is not returning js object we parse it
 
-    setCurrentUser(honeyUserObject)
-  },[])
-
+    setCurrentUser(honeyUserObject);
+  }, []);
 
   return (
     <>
@@ -34,8 +34,11 @@ export const ApplicationViews = () => {
         >
           <Route index element={<Welcome />} />
           {/*Route index is route for home route for parents url */}
-          <Route path="tickets" element={<TicketList currentUser={currentUser}/>} />
-          <Route path="employees/">
+          <Route
+            path="tickets"
+            element={<TicketList currentUser={currentUser} />}
+          />
+          <Route path="employees">
             <Route index element={<EmployeeList />} />
             <Route path=":userId" element={<EmployeeDetails />} />
           </Route>
@@ -44,7 +47,11 @@ export const ApplicationViews = () => {
             <Route path=":userId" element={<CustomerDetails />} />
             {/*:userId <- route parameter, able to capture Id*/}
           </Route>
-          <Route path="profile" element={<>Profile</>}/>
+          <Route
+            path="profile"
+            element={<EmployeeForm currentUser={currentUser} />}
+          />
+          {/*passing currentUser*/}
         </Route>
       </Routes>
     </>

@@ -26,7 +26,9 @@ export const updateTicket=(ticket)=>{
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(ticket),
-    })
+        body: JSON.stringify(ticket)  
+
+    }
+    )
 }
 
