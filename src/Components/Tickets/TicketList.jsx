@@ -9,16 +9,24 @@ export const TicketList = ({ currentUser }) => {
   const [showEmergencyOnly, setShowEmergency] = useState(false);
   const [filteredTickets, setFilteredTickets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showOpenOnly, setShowOpenOnly] = useState(false);
 
   const getAndSetTickets = () => {
     getTickets().then((ticketsArray) => {
-      setAllTickets(ticketsArray);
+      if (currentUser.isStaff) {
+        setAllTickets(ticketsArray);
+      } else {
+        const customerTickets = ticketsArray.filter(
+          (ticket) => ticket.userId === currentUser.id
+        );
+        setAllTickets(customerTickets);
+      }
     });
   };
 
   useEffect(() => {
     getAndSetTickets();
-  }, []); // When the dependency array is empty, the useEffect is only watching for the initial render of this component.
+  }, [currentUser]); // When the dependency array is empty, the useEffect is only watching for the initial render of this component.
 
   useEffect(() => {
     if (showEmergencyOnly) {
@@ -38,6 +46,17 @@ export const TicketList = ({ currentUser }) => {
     setFilteredTickets(foundTickets);
   }, [searchTerm, allTickets]);
 
+  useEffect(() => {
+    if (showOpenOnly) {
+      const openTickets = allTickets.filter(
+        (ticket) => ticket.dateCompleted === ""
+      );
+      setFilteredTickets(openTickets);
+    } else {
+      setFilteredTickets(allTickets);
+    }
+  }, [showOpenOnly, allTickets]);
+
   return (
     <>
       <div className="tickets-container">
@@ -45,6 +64,8 @@ export const TicketList = ({ currentUser }) => {
         <TicketFilterBar
           setShowEmergency={setShowEmergency}
           setSearchTerm={setSearchTerm}
+          currentUser={currentUser}
+          setShowOpenOnly={setShowOpenOnly}
         />
         <article className="tickets">
           {filteredTickets.map((ticketObj) => {

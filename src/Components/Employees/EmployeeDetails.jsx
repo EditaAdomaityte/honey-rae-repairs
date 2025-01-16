@@ -23,11 +23,11 @@ export const EmployeeDetails = () => {
         {employee.user?.email}
       </div>
       <div>
-        <span className="customer-info">Rate per hour ($) : </span>
+        <span className="employee-info">Rate per hour ($) : </span>
         {employee.rate}
       </div>
       <div>
-        <span className="customer-info">Specialty : </span>
+        <span className="employee-info">Specialty : </span>
         {employee.specialty}
       </div>
       <div> Currently working on tickets</div>

@@ -85,16 +85,9 @@
   ],
   "serviceTickets": [
     {
-      "id": 1,
-      "userId": 3,
-      "description": "Cracked phone screen",
-      "emergency": false,
-      "dateCompleted": "Fri Apr 29 2022 14:02:20 GMT-0500 (Central Daylight Time)"
-    },
-    {
       "id": 2,
       "userId": 3,
-      "description": "Xbox has red ring of death",
+      "description": "Dropped Nintendo in toilet",
       "emergency": true,
       "dateCompleted": ""
     },
@@ -113,13 +106,6 @@
       "dateCompleted": "2025-01-13T21:25:38.024Z"
     },
     {
-      "userId": 3,
-      "description": "Speaker phone does not work on iPhone",
-      "emergency": true,
-      "dateCompleted": "",
-      "id": 5
-    },
-    {
       "id": 6,
       "userId": 2,
       "description": "Airpods wont connect",
@@ -132,14 +118,16 @@
       "emergency": true,
       "dateCompleted": "",
       "id": 7
+    },
+    {
+      "userId": 3,
+      "description": "Laptop will not turn on",
+      "emergency": true,
+      "dateCompleted": "",
+      "id": 10
     }
   ],
   "employeeTickets": [
-    {
-      "id": 1,
-      "employeeId": 3,
-      "serviceTicketId": 1
-    },
     {
       "id": 3,
       "employeeId": 1,
@@ -147,18 +135,8 @@
     },
     {
       "employeeId": 2,
-      "serviceTicketId": 2,
-      "id": 4
-    },
-    {
-      "employeeId": 2,
       "serviceTicketId": 7,
       "id": 6
-    },
-    {
-      "employeeId": 1,
-      "serviceTicketId": 5,
-      "id": 7
     },
     {
       "employeeId": 1,
